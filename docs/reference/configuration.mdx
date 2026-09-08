@@ -304,13 +304,21 @@ openai:
 Optional remote MCP from the same vendor is a **separate** server slot. Do not reuse the MCP URL as `openai.base_url`:
 
 ```yaml
+# mcp_agent.config.yaml
 mcp:
   servers:
     pzero:
       transport: streamable_http
       url: https://mcp.pzero.studio/mcp
+```
+
+```yaml
+# mcp_agent.secrets.yaml — headers are passed through as-is (no ${ENV} expansion)
+mcp:
+  servers:
+    pzero:
       headers:
-        Authorization: "Bearer ${PZERO_API_KEY}"
+        Authorization: "Bearer pzero_…"
 ```
 
 - Override `base_url` for other OpenAI-compatible services such as Groq (`https://api.groq.com/openai/v1`), Together, or local Ollama (`http://localhost:11434/v1`). Provide a dummy `api_key` for services that do not check it.
